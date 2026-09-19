@@ -6,6 +6,8 @@ Player::Player(int health, std::vector<Ground> Layer) : health(health), collisio
 		stamina = 1.0f;
 		deltaX = 0.0f;
 		deltaY = 0.0f;
+		radius = 10;
+		grounded = false;
 }
 
 void Player::checkHealth(){
@@ -13,8 +15,8 @@ void Player::checkHealth(){
 }
 
 void Player::handleMovement(){
-		handleJump();
-		if (IsKeyDown(KEY_LEFT_SHIFT) && stamina > 0)
+		handlePhysics();
+		if (IsKeyDown(KEY_LEFT_SHIFT) && stamina > 0 && !grounded)
 		{
 				speed *= 5;
 				stamina -= 0.25f;
@@ -37,11 +39,10 @@ void Player::takeDamage(int damage)
 		health -= damage;
 }
 
-void Player::handleJump(){
-		//appliquer cinematique du movement
+void Player::handlePhysics(){
 		int		i = 0;
 		float	gravity = 1.0f;
-		bool	grounded = false;
+		grounded = false;
 
 		bool	touchingWall = false;
 
@@ -52,14 +53,15 @@ void Player::handleJump(){
 
 				const Rectangle& coll = collisionLayer[i].collision;
 
-				bool onTop = (feet >= coll.y && feet <= (coll.y + 10));
-				bool onBot = (head >= coll.y + 40 && head <= (coll.y + 50));
+				bool onTop = (feet >= coll.y && feet <= (coll.y + radius));
+				bool onBot = (head >= coll.y + coll.height - radius && head <= (coll.y + coll.height));
 
-				bool verticalOverlap = (feet >= coll.y && head <= coll.y + 50);
-				bool onSideL = verticalOverlap && (Pos.x + 10 >= coll.x && Pos.x - 10 <= coll.x);
-				bool onSideR = verticalOverlap && (Pos.x + 10 >= coll.x + 50 && Pos.x - 10 <= coll.x + 50);
+				bool verticalOverlap = (feet >= coll.y && head <= coll.y + coll.height);
+				bool onSideL = verticalOverlap && (Pos.x + radius >= coll.x && Pos.x - radius <= coll.x);
+				bool onSideR = verticalOverlap && (Pos.x + radius >= coll.x + coll.width &&
+						Pos.x - radius <= coll.x + coll.width);
 
-				if (CheckCollisionCircleRec(Pos, 10, coll))
+				if (CheckCollisionCircleRec(Pos, radius, coll))
 				{
 						if (onTop)
 						{
@@ -72,13 +74,13 @@ void Player::handleJump(){
 						}
 						else if (onSideL)
 						{
-								Pos.x = coll.x - 10;
+								Pos.x = coll.x - radius;
 								gravity = 0.25f;
 								touchingWall = true;
 						}
 						else if (onSideR)
 						{
-								Pos.x = coll.x + 60;
+								Pos.x = coll.x + coll.width + radius;
 								gravity = 0.25f;
 								touchingWall = true;
 						}
@@ -109,5 +111,5 @@ void Player::handleJump(){
 
 void Player::displayPlayer()
 {
-	return;	
+	return;
 }

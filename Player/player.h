@@ -12,6 +12,7 @@ class Player{
 				float		deltaX;
 				float		deltaY;
 				float		stamina;
+				bool		grounded;
 
 				enum Anim{
 						IDLE,
@@ -23,10 +24,11 @@ class Player{
 				Vector2 Pos;
 				std::vector<Ground> collisionLayer;
 				Player(int health, std::vector<Ground> Layer);
+				int			radius;
 
 				void	checkHealth();
 				void	handleMovement();
-				void	handleJump();
+				void	handlePhysics();
 				void	takeDamage(int damage);
 				void	handleWallRun();
 				void	displayPlayer();
