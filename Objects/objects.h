@@ -12,7 +12,7 @@ class Ground{
 				Rectangle	collision;
 				Color		color;
 
-				Ground(float x, float y, Color color);
+				Ground(float x, float y, float width, float height, Color color);
 };
 
 #endif
