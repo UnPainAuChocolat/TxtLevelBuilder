@@ -8,6 +8,9 @@ Player::Player(int health, std::vector<Ground> Layer) : health(health), collisio
 		deltaY = 0.0f;
 		radius = 10;
 		grounded = false;
+		gravity = 1.0f;
+		touchingWallR = false;
+		touchingWallL = false;
 }
 
 void Player::checkHealth(){
@@ -16,9 +19,10 @@ void Player::checkHealth(){
 
 void Player::handleMovement(){
 		handlePhysics();
+		handleJump();
 		if (IsKeyDown(KEY_LEFT_SHIFT) && stamina > 0 && !grounded)
 		{
-				speed *= 5;
+				speed = 10;
 				stamina -= 0.25f;
 		}
 		if (IsKeyDown(KEY_D))
@@ -41,10 +45,10 @@ void Player::takeDamage(int damage)
 
 void Player::handlePhysics(){
 		int		i = 0;
-		float	gravity = 1.0f;
 		grounded = false;
-
-		bool	touchingWall = false;
+		touchingWallR = false;
+		touchingWallL = false;
+		gravity = 1.0f;
 
 		while (i < size_list)
 		{
@@ -76,17 +80,21 @@ void Player::handlePhysics(){
 						{
 								Pos.x = coll.x - radius;
 								gravity = 0.25f;
-								touchingWall = true;
+								touchingWallL = true;
 						}
 						else if (onSideR)
 						{
 								Pos.x = coll.x + coll.width + radius;
 								gravity = 0.25f;
-								touchingWall = true;
+								touchingWallR = true;
 						}
 				}
 				i++;
 		}
+}
+
+void Player::handleJump()
+{
 		if (grounded)
 		{
 				stamina = 1.0f;
@@ -94,6 +102,20 @@ void Player::handlePhysics(){
 				speed = 2;
 				if (IsKeyDown(KEY_SPACE))
 						deltaY = 10.0f;
+		}
+		if (touchingWallR && IsKeyDown(KEY_SPACE))
+		{
+				deltaY = 10.0f;
+				deltaX = 4.0f;
+				touchingWallR = false;
+				speed = 2;
+		}
+		if (touchingWallL && IsKeyDown(KEY_SPACE))
+		{
+				deltaY = 10.0f;
+				deltaX = -4.0f;
+				touchingWallL = false;
+				speed = 2;
 		}
 		else
 		{
@@ -104,7 +126,7 @@ void Player::handlePhysics(){
 						deltaY -= 0.5f;
 				}
 
-				speed = touchingWall ? 0 : 2;
+				speed = touchingWallR || touchingWallL ? 0 : 2;
 		}
 		Pos.y -= (deltaY * gravity);
 }

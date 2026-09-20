@@ -12,7 +12,10 @@ class Player{
 				float		deltaX;
 				float		deltaY;
 				float		stamina;
+				float		gravity;
 				bool		grounded;
+				bool		touchingWallR;
+				bool		touchingWallL;
 
 				enum Anim{
 						IDLE,
@@ -29,8 +32,8 @@ class Player{
 				void	checkHealth();
 				void	handleMovement();
 				void	handlePhysics();
+				void	handleJump();
 				void	takeDamage(int damage);
-				void	handleWallRun();
 				void	displayPlayer();
 };
 
