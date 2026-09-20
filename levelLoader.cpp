@@ -38,7 +38,7 @@ int LoadLevel(const char* filepath)
                         height = 50;
                         while (line[i] == 'x')
                         {
-                            if (prev_line[i] == 'x' && width == 50)
+                            if (prev_line[i] == 'x' && width <= 50)
                             {
                                 width = 50;
                                 height = 100;
@@ -81,7 +81,7 @@ void create_top_box(std::string line, std::string prev_line, int* height, int* w
         if (prev_line[*i+1] == 'x' && line[*i+1] == 'x')
         {
             *width += 50;
-            i++;
+            *i = *i + 1;
         }
         else
         {
