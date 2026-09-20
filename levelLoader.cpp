@@ -38,7 +38,8 @@ int LoadLevel(const char* filepath)
                         height = 50;
                         while (line[i] == 'x')
                         {
-                            if (prev_line[i] == 'x' && width <= 50)
+                            std::cout << prev_line[i] << '\n';
+                            if (prev_line[i] == 'x' && width == 0)
                             {
                                 width = 50;
                                 height = 100;
