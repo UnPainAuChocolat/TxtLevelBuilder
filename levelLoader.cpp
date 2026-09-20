@@ -38,7 +38,6 @@ int LoadLevel(const char* filepath)
                         height = 50;
                         while (line[i] == 'x')
                         {
-                            std::cout << prev_line[i] << '\n';
                             if (prev_line[i] == 'x' && width == 0)
                             {
                                 width = 50;
@@ -52,7 +51,7 @@ int LoadLevel(const char* filepath)
                             }
                             i++;
                         }
-                        std::cout << "New Horizontal ground -> x=" << Pos.x << " y=" << Pos.y << " height=" << height << " width=" << width << '\n';
+                        //std::cout << "New Horizontal ground -> x=" << Pos.x << " y=" << Pos.y << " height=" << height << " width=" << width << '\n';
                         Ground newGround(Pos.x, Pos.y, width, height, GRAY);
                         levelCollision.push_back(newGround);
                         Pos.x += width;
@@ -86,7 +85,7 @@ void create_top_box(std::string line, std::string prev_line, int* height, int* w
         }
         else
         {
-            std::cout << "New Vertical ground -> x=" << Pos.x << " y=" << Pos.y - 50 << " height=" << *height << " width=" << *width << '\n';
+            //std::cout << "New Vertical ground -> x=" << Pos.x << " y=" << Pos.y - 50 << " height=" << *height << " width=" << *width << '\n';
             Ground newGround(Pos.x, Pos.y - 50, *width, *height, GRAY);
             levelCollision.push_back(newGround);
             break;
