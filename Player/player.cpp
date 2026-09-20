@@ -32,9 +32,9 @@ void Player::handleMovement(){
 		if (deltaX > -0.10f && deltaX < 0.10f)
 				deltaX = 0.0f;
 		if (deltaX > 0.0f)
-				deltaX -= 0.15f;
+				deltaX -= grounded ? 0.15f : 0.075f;
 		if (deltaX < 0.0f)
-				deltaX += 0.15f;
+				deltaX += grounded ? 0.15f : 0.075f;
 		Pos.x += deltaX * speed;
 }
 
