@@ -16,6 +16,7 @@ class Player{
 				bool		grounded;
 				bool		touchingWallR;
 				bool		touchingWallL;
+				Vector2		start_pos;
 
 				enum Anim{
 						IDLE,
@@ -24,17 +25,18 @@ class Player{
 						ONWALL
 				};
 		public:
-				std::vector<Ground> collisionLayer;
 				Vector2 Pos;
-				Player(int health, std::vector<Ground> Layer, Vector2 spawn);
+				Player(int health, Vector2 spawn);
 				int			radius;
 
 				void	checkHealth();
+				void	handlePlayer();
 				void	handleMovement();
 				void	handlePhysics();
 				void	handleJump();
 				void	takeDamage(int damage);
 				void	displayPlayer();
+				void	checkSpike();
 };
 
 #endif

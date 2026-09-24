@@ -2,8 +2,23 @@
 
 int wallJumped = 0;
 
-Player::Player(int health, std::vector<Ground> Layer, Vector2 spawn) : health(health), collisionLayer(Layer), Pos(spawn){ 
+void Player::checkSpike()
+{
+		int		i = 0;
+		int		size_list = spikes.size();
+		while (i < size_list)
+		{
+				if (CheckCollisionCircleRec(Pos, radius, spikes[i]))
+				{
+						takeDamage(1000);
+				}
+				i++;
+		}
+}
+
+Player::Player(int health, Vector2 spawn) : health(health), Pos(spawn){ 
 		speed = 2;
+		start_pos = spawn;
 		stamina = 1.0f;
 		deltaX = 0.0f;
 		deltaY = 0.0f;
@@ -18,9 +33,20 @@ void Player::checkHealth(){
 		std::cout << "Player have: " << health << " hp" << std::endl;
 }
 
-void Player::handleMovement(){
+void Player::handlePlayer()
+{
+		handleMovement();
 		handlePhysics();
 		handleJump();
+		checkSpike();
+		if (health <= 0)
+		{
+				Pos = start_pos;
+				health = 50;
+		}
+}
+
+void Player::handleMovement(){
 		if (IsKeyDown(KEY_LEFT_SHIFT) && stamina > 0 && !grounded)
 		{
 				speed = 10;
@@ -56,7 +82,7 @@ void Player::handlePhysics(){
 				float feet = Pos.y + 10;
 				float head = Pos.y - 10;
 
-				const Rectangle& coll = collisionLayer[i].collision;
+				const Rectangle& coll = levelCollision[i].collision;
 
 				bool onTop = (feet >= coll.y && feet <= (coll.y + radius));
 				bool onBot = (head >= coll.y + coll.height - radius && 

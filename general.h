@@ -9,8 +9,9 @@
 #include "Player/player.h"
 
 //global value
-extern std::vector<Ground>	levelCollision;
-extern int 					size_list;
+extern std::vector<Ground>		levelCollision;
+extern std::vector<Rectangle>	spikes;
+extern int 						size_list;
 
 //level loader
 int		LoadLevel(const char* filepath, Vector2* spawn);

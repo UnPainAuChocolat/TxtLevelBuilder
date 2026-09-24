@@ -9,7 +9,7 @@ int		main(void)
 		Vector2 spawn_point;
 		
 		LoadLevel(str, &spawn_point);
-		Player player(50, levelCollision, spawn_point);
+		Player player(50, spawn_point);
 		player.checkHealth();
 
 		InitWindow(screenWidth, screenHeight, "test");
@@ -17,7 +17,6 @@ int		main(void)
 		SetTargetFPS(60);
 		while (!WindowShouldClose())
 		{
-				player.handleMovement();
 
 				BeginDrawing();
 				if (currentScreen == MENU)
@@ -27,6 +26,7 @@ int		main(void)
 				}
 				else
 				{
+						player.handlePlayer();
 						ClearBackground(RAYWHITE);
 						displayLevel();
 						DrawCircleV(player.Pos, 10, RED);

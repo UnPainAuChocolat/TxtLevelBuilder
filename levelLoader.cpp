@@ -2,12 +2,14 @@
 
 int size_list;
 std::vector<Ground> levelCollision;
+std::vector<Rectangle> spikes;
 
 int LoadLevel(const char* filepath, Vector2* spawn)
 {
 		int i;
 
 		Vector2 Pos = {0, 0};
+		Rectangle spike;
 		std::ifstream file(filepath);
 
 		if (!file.is_open()){
@@ -41,6 +43,13 @@ int LoadLevel(const char* filepath, Vector2* spawn)
 							Pos.x += 50;
 							i++;
                             break;
+
+						case 'y':
+							spike = {Pos.x, Pos.y, 50, 50};
+							spikes.push_back(spike);
+							Pos.x += 50;
+							i++;
+							break;
 
                         default:
                             i++;
