@@ -24,9 +24,9 @@ class Player{
 						ONWALL
 				};
 		public:
-				Vector2 Pos;
 				std::vector<Ground> collisionLayer;
-				Player(int health, std::vector<Ground> Layer);
+				Vector2 Pos;
+				Player(int health, std::vector<Ground> Layer, Vector2 spawn);
 				int			radius;
 
 				void	checkHealth();

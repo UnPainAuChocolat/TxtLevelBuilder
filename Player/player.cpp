@@ -1,11 +1,8 @@
 #include "player.h"
 
 int wallJumped = 0;
-bool touchedWall = false;
-int	count = 0;
 
-Player::Player(int health, std::vector<Ground> Layer) : health(health), collisionLayer(Layer){ 
-		Pos = {400, 225};
+Player::Player(int health, std::vector<Ground> Layer, Vector2 spawn) : health(health), collisionLayer(Layer), Pos(spawn){ 
 		speed = 2;
 		stamina = 1.0f;
 		deltaX = 0.0f;
@@ -69,7 +66,7 @@ void Player::handlePhysics(){
 				bool onSideL = verticalOverlap && (Pos.x + radius >= coll.x && 
 								Pos.x - radius <= coll.x);
 				bool onSideR = verticalOverlap && (Pos.x + radius >= coll.x + coll.width &&
-						Pos.x - radius <= coll.x + coll.width);
+								Pos.x - radius <= coll.x + coll.width);
 
 				if (CheckCollisionCircleRec(Pos, radius, coll))
 				{
@@ -85,31 +82,22 @@ void Player::handlePhysics(){
 						else if (onSideL)
 						{
 								Pos.x = coll.x - radius;
-								if (!touchedWall)
-								{
-										gravity = 0.25f;
-										touchingWallL = true;
-										wallJumped = 0;
-								}
+								gravity = 0.25f;
+								touchingWallL = true;
+								wallJumped = 0;
+								deltaX = 0;
 						}
 						else if (onSideR)
 						{
 								Pos.x = coll.x + coll.width + radius;
-								if (!touchedWall)
-								{
-										gravity = 0.25f;
-										touchingWallR = true;
-										wallJumped = 0;
-								}
+								gravity = 0.25f;
+								touchingWallR = true;
+								wallJumped = 0;
+								deltaX = 0;
 						}
-				}
-				if (count <= 0)
-				{
-						touchedWall = false;
 				}
 				i++;
 		}
-		count--;
 }
 
 void Player::handleJump()
@@ -156,5 +144,5 @@ void Player::handleJump()
 
 void Player::displayPlayer()
 {
-	return;
+		return;
 }

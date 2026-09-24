@@ -3,7 +3,7 @@
 int size_list;
 std::vector<Ground> levelCollision;
 
-int LoadLevel(const char* filepath)
+int LoadLevel(const char* filepath, Vector2* spawn)
 {
 		int i;
         int width;
@@ -56,6 +56,12 @@ int LoadLevel(const char* filepath)
                         levelCollision.push_back(newGround);
                         Pos.x += width;
                     }
+					else if (line[i] == 'o')
+					{
+							*spawn = {Pos.x, Pos.y};
+							Pos.x += 50;
+							i++;
+					}
                     else
                     {
                         i++;
