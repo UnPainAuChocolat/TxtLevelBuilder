@@ -15,6 +15,7 @@ extern int 					size_list;
 //level loader
 int		LoadLevel(const char* filepath, Vector2* spawn);
 void	displayLevel();
+void    handle_boxes(Vector2* Pos, std::string line, std::string prev_line, int* i);
 void create_top_box(std::string line, std::string prev_line, int* height, int* width, int* i, Vector2 Pos);
 
 //enum of screens

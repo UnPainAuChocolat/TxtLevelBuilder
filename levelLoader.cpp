@@ -6,8 +6,6 @@ std::vector<Ground> levelCollision;
 int LoadLevel(const char* filepath, Vector2* spawn)
 {
 		int i;
-        int width;
-        int height;
 
 		Vector2 Pos = {0, 0};
 		std::ifstream file(filepath);
@@ -32,40 +30,22 @@ int LoadLevel(const char* filepath, Vector2* spawn)
                 i = 0;
 				while (line[i] != '\0')
 				{
-                    if (line[i] == 'x')
+                    switch (line[i])
                     {
-                        width = 0;
-                        height = 50;
-                        while (line[i] == 'x')
-                        {
-                            if (prev_line[i] == 'x' && width == 0)
-                            {
-                                width = 50;
-                                height = 100;
-                                create_top_box(line, prev_line, &height, &width, &i, Pos);
-                                height = 50;
-                            }
-                            else
-                            {
-                                width += 50;
-                            }
-                            i++;
-                        }
-                        //std::cout << "New Horizontal ground -> x=" << Pos.x << " y=" << Pos.y << " height=" << height << " width=" << width << '\n';
-                        Ground newGround(Pos.x, Pos.y, width, height, GRAY);
-                        levelCollision.push_back(newGround);
-                        Pos.x += width;
-                    }
-					else if (line[i] == 'o')
-					{
+                        case 'x':
+                            handle_boxes(&Pos, line, prev_line, &i);
+                            break;
+
+                        case 'o':
 							*spawn = {Pos.x, Pos.y};
 							Pos.x += 50;
 							i++;
-					}
-                    else
-                    {
-                        i++;
-                        Pos.x += 50;
+                            break;
+
+                        default:
+                            i++;
+                            Pos.x += 50;
+                            break;
                     }
                 }
 				Pos.x = 0;
@@ -78,6 +58,33 @@ int LoadLevel(const char* filepath, Vector2* spawn)
 		file.close();
 		size_list = levelCollision.size();
 		return size_list;
+}
+
+void    handle_boxes(Vector2* Pos, std::string line, std::string prev_line, int* i)
+{
+    int width;
+    int height;
+
+    width = 0;
+    height = 50;
+    while (line[*i] == 'x')
+    {
+        if (prev_line[*i] == 'x' && width == 0)
+        {
+            width = 50;
+            height = 100;
+            create_top_box(line, prev_line, &height, &width, i, *Pos);
+            height = 50;
+        }
+        else
+        {
+            width += 50;
+        }
+        *i += 1;
+    }
+    Ground newGround(Pos->x, Pos->y, width, height, GRAY);
+    levelCollision.push_back(newGround);
+    Pos->x += width;
 }
 
 void create_top_box(std::string line, std::string prev_line, int* height, int* width, int* i, Vector2 Pos)
@@ -101,21 +108,21 @@ void create_top_box(std::string line, std::string prev_line, int* height, int* w
 
 void displayLevel()
 {
-		int i = 0;
+    int i = 0;
 
-		while (i < size_list)
-		{
-				Ground ground = levelCollision[i];
-				DrawRectangleRec(ground.collision, ground.color);
-				i++;
-		}
+    while (i < size_list)
+    {
+        Ground ground = levelCollision[i];
+        DrawRectangleRec(ground.collision, ground.color);
+        i++;
+    }
 }
 
 Texture2D LoadTexture(char* filepath)
 {
-		Image temp = LoadImage(filepath);
-		ImageResize(&temp, 50, 50);
+    Image temp = LoadImage(filepath);
+    ImageResize(&temp, 50, 50);
 
-		Texture2D res = LoadTextureFromImage(temp);
-		return res;
+    Texture2D res = LoadTextureFromImage(temp);
+    return res;
 }
