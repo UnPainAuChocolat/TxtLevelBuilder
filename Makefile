@@ -5,6 +5,7 @@ NAME=												game
 CC=													g++
 
 SRC=												main.cpp\
+													menu.cpp\
 													Player/player.cpp\
 													Objects/ground.cpp\
 													levelLoader.cpp

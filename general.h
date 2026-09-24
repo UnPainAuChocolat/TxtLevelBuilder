@@ -12,9 +12,18 @@
 extern std::vector<Ground>	levelCollision;
 extern int 					size_list;
 
+
 //level loader
 int		LoadLevel(const char* filepath);
 void	displayLevel();
 void create_top_box(std::string line, std::string prev_line, int* height, int* width, int* i, Vector2 Pos);
+
+//enum of screens
+enum screen{
+		MENU = 0,
+		GAME = 1
+};
+void menuHandler(screen* currentScreen);
+void menuDisplay();
 
 #endif
