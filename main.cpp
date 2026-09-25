@@ -14,11 +14,13 @@ int		main(void)
 
 		InitWindow(screenWidth, screenHeight, "test");
 
+		loadMenu();
 		SetTargetFPS(60);
 		while (!WindowShouldClose() && currentScreen != EXIT)
 		{
 
 				BeginDrawing();
+				//BeginBlendMode(BLEND_ALPHA);
 				if (currentScreen == MENU)
 				{
 						menuHandler(&currentScreen);
@@ -34,8 +36,10 @@ int		main(void)
 				{
 						currentScreen = EXIT;
 				}
+				//EndBlendMode();
 				EndDrawing();
 		}
 
+		unloadMenu();
 		CloseWindow();
 }

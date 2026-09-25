@@ -21,12 +21,16 @@ void	displayLevel();
 void    handle_boxes(Vector2* Pos, std::string line, std::string prev_line, int* i);
 void create_top_box(std::string line, std::string prev_line, int* height, int* width, int* i, Vector2 Pos);
 
-//enum of screens
+//texture loader
+
+//screens func
 enum screen{
 		MENU,
 		GAME,
 		EXIT
 };
 void menuHandler(screen* currentScreen);
+void loadMenu();
+void unloadMenu();
 
 #endif

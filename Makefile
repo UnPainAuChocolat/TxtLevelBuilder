@@ -8,7 +8,8 @@ SRC=												main.cpp\
 													UI/menu.cpp\
 													Player/player.cpp\
 													Objects/ground.cpp\
-													Loader/levelLoader.cpp
+													Loader/levelLoader.cpp\
+													Loader/ImgLoader.cpp
 
 FLAG=												-Wall -Wextra -Werror
 
