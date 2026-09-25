@@ -1,9 +1,10 @@
 #include "general.h"
 
+float screenWidth = 800;
+float screenHeight = 450;
+
 int		main(void)
 {
-		float	screenHeight = 450;
-		float	screenWidth = 800;
 		screen currentScreen = MENU;
 		char str[] = "Level/level1";
 		Vector2 spawn_point;

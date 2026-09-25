@@ -1,12 +1,9 @@
 #include "../general.h"
 
-float	screenHeight = 450;
-float	screenWidth = 800;
-
-Rectangle continueButton = {screenWidth / 2 - 150, screenHeight / 2 - 50,300,20};
-Rectangle loadButton = {screenWidth / 2 - 150, screenHeight / 2 - 30, 300, 20};
-Rectangle optionButton = {screenWidth / 2 - 150, screenHeight / 2 -10, 300, 20};
-Rectangle exitButton = {screenWidth / 2 -150, screenHeight/ 2 + 10, 300, 20};
+Rectangle continueButton = {screenWidth / 2 - 50, screenHeight / 2 - 80,300,20};
+Rectangle loadButton = {screenWidth / 2 - 50, screenHeight / 2 - 60, 300, 20};
+Rectangle optionButton = {screenWidth / 2 - 50, screenHeight / 2 - 40, 300, 20};
+Rectangle exitButton = {screenWidth / 2 - 50, screenHeight/ 2 - 20, 300, 20};
 Color Green = {24, 255, 63, 255};
 Color Black = {13, 13, 13, 255};
 
@@ -66,8 +63,6 @@ void menuHandler(screen* currentScreen)
 
 		float time = (float)GetTime();
 		SetShaderValue(crtShader, timeLoc, &time, SHADER_UNIFORM_FLOAT);
-
-		ClearBackground(Black);
 
 		BeginTextureMode(menuCanvas);
 		ClearBackground(Black);
