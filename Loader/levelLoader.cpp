@@ -1,4 +1,4 @@
-#include "general.h"
+#include "../general.h"
 
 int size_list;
 std::vector<Ground> levelCollision;

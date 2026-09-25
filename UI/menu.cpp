@@ -1,4 +1,4 @@
-#include "general.h"
+#include "../general.h"
 
 float	screenHeight = 400;
 float	screenWidth = 800;

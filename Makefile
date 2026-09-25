@@ -5,10 +5,10 @@ NAME=												game
 CC=													g++
 
 SRC=												main.cpp\
-													menu.cpp\
+													UI/menu.cpp\
 													Player/player.cpp\
 													Objects/ground.cpp\
-													levelLoader.cpp
+													Loader/levelLoader.cpp
 
 FLAG=												-Wall -Wextra -Werror
 
