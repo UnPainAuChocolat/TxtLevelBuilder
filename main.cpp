@@ -2,8 +2,8 @@
 
 int		main(void)
 {
-		int	screenWidth = 800;
-		int	screenHeight = 450;
+		float	screenHeight = 450;
+		float	screenWidth = 800;
 		screen currentScreen = MENU;
 		char str[] = "Level/level1";
 		Vector2 spawn_point;
@@ -15,21 +15,24 @@ int		main(void)
 		InitWindow(screenWidth, screenHeight, "test");
 
 		SetTargetFPS(60);
-		while (!WindowShouldClose())
+		while (!WindowShouldClose() && currentScreen != EXIT)
 		{
 
 				BeginDrawing();
 				if (currentScreen == MENU)
 				{
-						menuDisplay();
 						menuHandler(&currentScreen);
 				}
-				else
+				else if (currentScreen == GAME)
 				{
 						player.handlePlayer();
 						ClearBackground(RAYWHITE);
 						displayLevel();
 						DrawCircleV(player.Pos, 10, RED);
+				}
+				else
+				{
+						currentScreen = EXIT;
 				}
 				EndDrawing();
 		}

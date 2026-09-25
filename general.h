@@ -12,6 +12,8 @@
 extern std::vector<Ground>		levelCollision;
 extern std::vector<Rectangle>	spikes;
 extern int 						size_list;
+extern float						screenWidth;
+extern float						screenHeight;
 
 //level loader
 int		LoadLevel(const char* filepath, Vector2* spawn);
@@ -21,10 +23,10 @@ void create_top_box(std::string line, std::string prev_line, int* height, int* w
 
 //enum of screens
 enum screen{
-		MENU = 0,
-		GAME = 1
+		MENU,
+		GAME,
+		EXIT
 };
 void menuHandler(screen* currentScreen);
-void menuDisplay();
 
 #endif
