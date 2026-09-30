@@ -6,6 +6,7 @@ CC=													g++
 
 SRC=												main.cpp\
 													UI/menu.cpp\
+													UI/option.cpp\
 													Player/player.cpp\
 													Objects/ground.cpp\
 													Loader/levelLoader.cpp\

@@ -24,10 +24,15 @@ void create_top_box(std::string line, std::string prev_line, int* height, int* w
 //screens func
 enum screen{
 		MENU,
+		OPTION,
+		RESO,
 		GAME,
 		EXIT
 };
-void menuHandler(screen* currentScreen);
+void UiHandler(screen* currentScreen);
+bool buttonHandler(Vector2 mousePos, Rectangle button, const char* name);
+void optionHandler(screen* currentScreen, Vector2 mousePos);
+void resolutionHandler(screen* currentScreen, Vector2 mousePos);
 void loadMenu();
 void unloadMenu();
 

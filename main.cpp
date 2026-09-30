@@ -25,9 +25,9 @@ int		main(void)
 				BeginDrawing();
 				BeginMode2D(camera);
 				//BeginBlendMode(BLEND_ALPHA);
-				if (currentScreen == MENU)
+				if (currentScreen == MENU || currentScreen == OPTION)
 				{
-						menuHandler(&currentScreen);
+						UiHandler(&currentScreen);
 				}
 				else if (currentScreen == GAME)
 				{

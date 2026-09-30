@@ -57,7 +57,19 @@ bool buttonHandler(Vector2 mousePos, Rectangle button, const char* name)
 		return res;
 }
 
-void menuHandler(screen* currentScreen)
+void menuHandler(screen* currentScreen, Vector2 mousePos)
+{
+		if (buttonHandler(mousePos, continueButton, "continue"))
+				*currentScreen = GAME;
+		else if (buttonHandler(mousePos, loadButton, "load"))
+				*currentScreen = GAME;
+		else if (buttonHandler(mousePos, optionButton, "option"))
+				*currentScreen = OPTION;
+		else if (buttonHandler(mousePos, exitButton, "exit"))
+				*currentScreen = EXIT;
+}
+
+void UiHandler(screen* currentScreen)
 {
 		Vector2 mousePos = GetMousePosition();
 
@@ -66,14 +78,12 @@ void menuHandler(screen* currentScreen)
 
 		BeginTextureMode(menuCanvas);
 		ClearBackground(Black);
-		if (buttonHandler(mousePos, continueButton, "continue"))
-				*currentScreen = GAME;
-		else if (buttonHandler(mousePos, loadButton, "load"))
-				*currentScreen = GAME;
-		else if (buttonHandler(mousePos, optionButton, "option"))
-				*currentScreen = GAME;
-		else if (buttonHandler(mousePos, exitButton, "exit"))
-				*currentScreen = EXIT;
+		if (*currentScreen == MENU)
+				menuHandler(currentScreen, mousePos);
+		else if (*currentScreen == OPTION)
+				optionHandler(currentScreen, mousePos);
+		else if (*currentScreen == RESO)
+				resolutionHandler(currentScreen, mousePos);
 		EndTextureMode();
 
 		//ClearBackground(Black);
