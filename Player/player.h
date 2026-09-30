@@ -24,19 +24,23 @@ class Player{
 						FALLING,
 						ONWALL
 				};
+				Anim		state;
+
+				void	handleMovement();
+				void	handleJump();
+				void	handlePhysics();
+				void	checkSpike();
 		public:
 				Vector2 Pos;
 				Player(int health, Vector2 spawn);
 				int			radius;
 
+				void	loadPlayer();
+				void	unloadPlayer();
 				void	checkHealth();
 				void	handlePlayer();
-				void	handleMovement();
-				void	handlePhysics();
-				void	handleJump();
 				void	takeDamage(int damage);
 				void	displayPlayer();
-				void	checkSpike();
 };
 
 #endif

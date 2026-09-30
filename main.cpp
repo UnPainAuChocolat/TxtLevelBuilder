@@ -16,6 +16,7 @@ int		main(void)
 		InitWindow(screenWidth, screenHeight, "test");
 
 		loadMenu();
+		player.loadPlayer();
 		SetTargetFPS(60);
 		while (!WindowShouldClose() && currentScreen != EXIT)
 		{
@@ -31,7 +32,7 @@ int		main(void)
 						player.handlePlayer();
 						ClearBackground(RAYWHITE);
 						displayLevel();
-						DrawCircleV(player.Pos, 10, RED);
+						player.displayPlayer();
 				}
 				else
 				{
@@ -42,5 +43,6 @@ int		main(void)
 		}
 
 		unloadMenu();
+		player.unloadPlayer();
 		CloseWindow();
 }

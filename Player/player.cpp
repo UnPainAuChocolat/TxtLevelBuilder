@@ -2,6 +2,12 @@
 
 int wallJumped = 0;
 
+//anim values
+int frameCount = 0;
+int orientation = 1;
+Texture2D idleSprite;
+Texture2D sprintSprite;
+
 void Player::checkSpike()
 {
 		int		i = 0;
@@ -53,15 +59,30 @@ void Player::handleMovement(){
 				stamina -= 0.25f;
 		}
 		if (IsKeyDown(KEY_D) && (wallJumped == 0))
+		{
 				deltaX = 2.0f;
+				orientation = 1;
+		}
 		if (IsKeyDown(KEY_A) && (wallJumped == 0))
+		{
 				deltaX = -2.0f;
+				orientation = -1;
+		}
 		if (deltaX > -0.10f && deltaX < 0.10f)
+		{
 				deltaX = 0.0f;
+				state = IDLE;
+		}
 		if (deltaX > 0.0f)
+		{
 				deltaX -= grounded ? 0.15f : 0.0f;
-		if (deltaX < 0.0f)
+				state = MOVING;
+		}
+		else if (deltaX < 0.0f)
+		{
 				deltaX += grounded ? 0.15f : 0.0f;
+				state = MOVING;
+		}
 		Pos.x += deltaX * speed;
 }
 
@@ -170,5 +191,37 @@ void Player::handleJump()
 
 void Player::displayPlayer()
 {
-		return;
+		int nbrFrames = 0;
+		Texture2D currentTexture;
+		Rectangle frame = {(float)frameCount * (float)(idleSprite.width/10), 0.0f,
+				(float)idleSprite.width/10 * orientation, (float)idleSprite.height};
+
+		if (state == IDLE)
+		{
+				nbrFrames = 10;
+				currentTexture = idleSprite;
+		}
+		else if (state == MOVING)
+		{
+				nbrFrames = 8;
+				currentTexture = sprintSprite;
+		}
+		frameCount++;
+		if (frameCount > nbrFrames)
+		{
+				frameCount = 0;
+		}
+		DrawTextureRec(currentTexture, frame, {Pos.x - 23, Pos.y - idleSprite.height + 17}, WHITE);
+}
+
+void Player::loadPlayer()
+{
+		sprintSprite = LoadTexture("Assets/Player/Run.png");
+		idleSprite = LoadTexture("Assets/Player/Idle.png");
+}
+
+void Player::unloadPlayer()
+{
+		UnloadTexture(idleSprite);
+		UnloadTexture(sprintSprite);
 }
