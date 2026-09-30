@@ -15,6 +15,7 @@ int		main(void)
 
 		InitWindow(screenWidth, screenHeight, "test");
 
+		Camera2D camera = startCamera();
 		loadMenu();
 		player.loadPlayer();
 		SetTargetFPS(60);
@@ -22,6 +23,7 @@ int		main(void)
 		{
 
 				BeginDrawing();
+				BeginMode2D(camera);
 				//BeginBlendMode(BLEND_ALPHA);
 				if (currentScreen == MENU)
 				{
@@ -30,6 +32,7 @@ int		main(void)
 				else if (currentScreen == GAME)
 				{
 						player.handlePlayer();
+						updateCamera(&camera, &player);
 						ClearBackground(RAYWHITE);
 						displayLevel();
 						player.displayPlayer();
@@ -39,6 +42,7 @@ int		main(void)
 						currentScreen = EXIT;
 				}
 				//EndBlendMode();
+				EndMode2D();
 				EndDrawing();
 		}
 

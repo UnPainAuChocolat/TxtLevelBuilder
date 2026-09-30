@@ -1,4 +1,5 @@
 #include "player.h"
+#include "../general.h"
 
 int wallJumped = 0;
 
@@ -7,6 +8,7 @@ int frameCount = 0;
 int orientation = 1;
 Texture2D idleSprite;
 Texture2D sprintSprite;
+Texture2D wallslideSprite;
 
 void Player::checkSpike()
 {
@@ -131,6 +133,8 @@ void Player::handlePhysics(){
 								Pos.x = coll.x - radius;
 								gravity = 0.25f;
 								touchingWallL = true;
+								state = ONWALL;
+								orientation = -1;
 								wallJumped = 0;
 								deltaX = 0;
 						}
@@ -139,6 +143,8 @@ void Player::handlePhysics(){
 								Pos.x = coll.x + coll.width + radius;
 								gravity = 0.25f;
 								touchingWallR = true;
+								state = ONWALL;
+								orientation = 1;
 								wallJumped = 0;
 								deltaX = 0;
 						}
@@ -201,6 +207,11 @@ void Player::displayPlayer()
 				nbrFrames = 10;
 				currentTexture = idleSprite;
 		}
+		else if (state == ONWALL)
+		{
+				nbrFrames = 1;
+				currentTexture = wallslideSprite;
+		}
 		else if (state == MOVING)
 		{
 				nbrFrames = 8;
@@ -217,11 +228,13 @@ void Player::displayPlayer()
 void Player::loadPlayer()
 {
 		sprintSprite = LoadTexture("Assets/Player/Run.png");
+		wallslideSprite = LoadTexture("Assets/Player/WallSlide.png");
 		idleSprite = LoadTexture("Assets/Player/Idle.png");
 }
 
 void Player::unloadPlayer()
 {
 		UnloadTexture(idleSprite);
+		UnloadTexture(wallslideSprite);
 		UnloadTexture(sprintSprite);
 }

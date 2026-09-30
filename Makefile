@@ -9,7 +9,8 @@ SRC=												main.cpp\
 													Player/player.cpp\
 													Objects/ground.cpp\
 													Loader/levelLoader.cpp\
-													Loader/ImgLoader.cpp
+													Loader/ImgLoader.cpp\
+													Camera/camera.cpp
 
 FLAG=												-Wall -Wextra -Werror
 

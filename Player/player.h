@@ -3,7 +3,7 @@
 
 #pragma once
 #include "../Objects/objects.h"
-#include "../general.h"
+//#include "../general.h"
 
 class Player{
 		private:

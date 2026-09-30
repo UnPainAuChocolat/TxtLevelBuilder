@@ -12,16 +12,14 @@
 extern std::vector<Ground>		levelCollision;
 extern std::vector<Rectangle>	spikes;
 extern int 						size_list;
-extern float						screenWidth;
-extern float						screenHeight;
+extern float					screenWidth;
+extern float					screenHeight;
 
 //level loader
 int		LoadLevel(const char* filepath, Vector2* spawn);
 void	displayLevel();
 void    handle_boxes(Vector2* Pos, std::string line, std::string prev_line, int* i);
 void create_top_box(std::string line, std::string prev_line, int* height, int* width, int* i, Vector2 Pos);
-
-//texture loader
 
 //screens func
 enum screen{
@@ -32,5 +30,9 @@ enum screen{
 void menuHandler(screen* currentScreen);
 void loadMenu();
 void unloadMenu();
+
+//camera func
+Camera2D	startCamera();
+void		updateCamera(Camera2D* camera, Player* player);
 
 #endif
