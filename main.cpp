@@ -25,7 +25,7 @@ int		main(void)
 				BeginDrawing();
 				BeginMode2D(camera);
 				//BeginBlendMode(BLEND_ALPHA);
-				if (currentScreen == MENU || currentScreen == OPTION)
+				if (currentScreen == MENU || currentScreen == OPTION || currentScreen == RESO)
 				{
 						UiHandler(&currentScreen);
 				}
